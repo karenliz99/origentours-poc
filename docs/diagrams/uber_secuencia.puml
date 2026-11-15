@@ -1,0 +1,21 @@
+@startuml uber_secuencia
+title Solicitud de viaje - app tipo Uber
+actor Pasajero
+participant "App Pasajero" as AP
+participant "API Backend" as API
+participant "Servicio de Matching" as M
+participant "App Conductor" as AC
+actor Conductor
+Pasajero -> AP : Solicita viaje (origen, destino)
+AP -> API : POST /rides
+API -> M : Buscar conductores cercanos
+M --> API : Lista de conductores
+API -> AC : Notifica solicitud
+AC -> Conductor : Muestra solicitud
+Conductor -> AC : Acepta
+AC -> API : Acepta viaje
+API --> AP : Conductor asignado + ETA
+Conductor -> AC : Finaliza viaje
+AC -> API : Viaje completado
+API --> AP : Cobro y recibo
+@enduml

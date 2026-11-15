@@ -1,0 +1,25 @@
+erDiagram
+    SOLICITUD ||--o{ BRIEF : tiene
+    SOLICITUD ||--o{ VAULT_ENTRY : genera
+    SOLICITUD {
+        uuid id PK
+        string canal
+        string estado
+        datetime created_at
+    }
+    BRIEF {
+        uuid id PK
+        uuid solicitud_id FK
+        json contenido_json
+        string completitud
+        boolean requiere_revision_humana
+        string validado_por
+        int version
+    }
+    VAULT_ENTRY {
+        string token PK
+        uuid solicitud_id FK
+        string type
+        string original_cifrado
+        datetime created_at
+    }

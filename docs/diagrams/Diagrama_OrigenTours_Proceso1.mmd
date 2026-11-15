@@ -1,0 +1,86 @@
+flowchart LR
+    N01(["N01 · Inicio: solicitud del cliente"]) --> N02["N02 · Recibir solicitud por correo, redes o web"]
+    N02 --> N03["N03 · Revisar intereses, fechas, viajeros y restricciones"]
+    N03 --> N04{"N04 · ¿Informacion suficiente?"}
+    N04 -- Si --> N10["N10 · Elaborar itinerario tentativo y estimacion de costos"]
+    N04 -- No --> N05["N05 · Solicitar datos faltantes por correo o WhatsApp"]
+    N05 --> N06["N06 · Gestionar aclaraciones y recordatorio individual"]
+    N06 --> N07{"N07 · ¿Cliente completa informacion?"}
+    N07 -- Si --> N03
+    N07 -- No --> N08["N08 · Comunicar y registrar cierre por datos incompletos"]
+    N08 --> N09(["N09 · Fin: solicitud incompleta"])
+    N10 --> N11["N11 · Consultar manualmente aliados locales"]
+    N11 --> N12["N12 · Recopilar disponibilidad y tarifas de aliados"]
+    N12 --> N13{"N13 · ¿Propuesta viable logisticamente?"}
+    N13 -- Si --> N22["N22 · Ajustar itinerario a preferencias del cliente"]
+    N13 -- No --> N14["N14 · Evaluar alternativas de fechas, aliados y actividades"]
+    N14 --> N15{"N15 · ¿Existe alternativa viable?"}
+    N15 -- Si --> N16["N16 · Ajustar alternativa y volver a confirmar"]
+    N16 --> N11
+    N15 -- No --> N17["N17 · Informar inviabilidad y ofrecer reformulacion"]
+    N17 --> N18{"N18 · ¿Cliente desea replantear solicitud?"}
+    N18 -- Si --> N19["N19 · Recoger nuevas preferencias y restricciones"]
+    N19 --> N03
+    N18 -- No --> N20["N20 · Comunicar y registrar cierre por inviabilidad"]
+    N20 --> N21(["N21 · Fin: propuesta no viable"])
+    N22 --> N23["N23 · Preparar PDF: precios, pagos y programa diario"]
+    N23 --> N24["N24 · Enviar cotizacion con explicacion personalizada"]
+    N24 --> N25["N25 · Realizar seguimiento manual al cliente"]
+    N25 --> N26{"N26 · ¿Cliente responde?"}
+    N26 -- Si --> N31{"N31 · ¿Cliente aprueba cotizacion?"}
+    N26 -- No --> N27["N27 · Hacer recordatorio final individual"]
+    N27 --> N28{"N28 · ¿Responde tras recordatorio?"}
+    N28 -- Si --> N31
+    N28 -- No --> N29["N29 · Comunicar y registrar cierre sin respuesta"]
+    N29 --> N30(["N30 · Fin: cotizacion sin respuesta"])
+    N31 -- Si --> N36["N36 · Dar paso al proceso de reserva y prepago"]
+    N36 --> N37(["N37 · Fin: cotizacion aprobada"])
+    N31 -- No --> N32{"N32 · ¿Solicita ajustes?"}
+    N32 -- Si --> N33["N33 · Recoger ajustes y devolver al diseno"]
+    N33 --> N10
+    N32 -- No --> N34["N34 · Comunicar y registrar cierre por no aceptacion"]
+    N34 --> N35(["N35 · Fin: cotizacion no aceptada"])
+
+     N01:::inicio
+     N02:::atencion
+     N03:::atencion
+     N04:::decision
+     N05:::atencion
+     N06:::atencion
+     N07:::decision
+     N08:::cierre
+     N09:::fin
+     N10:::diseno
+     N11:::diseno
+     N12:::diseno
+     N13:::decision
+     N14:::diseno
+     N15:::decision
+     N16:::diseno
+     N17:::atencion
+     N18:::decision
+     N19:::atencion
+     N20:::cierre
+     N21:::fin
+     N22:::diseno
+     N23:::diseno
+     N24:::atencion
+     N25:::atencion
+     N26:::decision
+     N27:::atencion
+     N28:::decision
+     N29:::atencion
+     N30:::fin
+     N31:::decision
+     N32:::decision
+     N33:::atencion
+     N34:::atencion
+     N35:::fin
+     N36:::atencion
+     N37:::fin
+    classDef inicio fill:#E6F4F2,stroke:#08766F,color:#123D38,stroke-width:1.7px
+    classDef atencion fill:#EDF5FC,stroke:#3A789E,color:#173A54,stroke-width:1px
+    classDef diseno fill:#F3F0FD,stroke:#7565A2,color:#39315F,stroke-width:1px
+    classDef decision fill:#FFF5E4,stroke:#B67B25,color:#68470E,stroke-width:1.5px
+    classDef cierre fill:#FBEFEB,stroke:#BB6E59,color:#6D382D,stroke-width:1px
+    classDef fin fill:#E9EEF3,stroke:#6F7B8B,color:#263746,stroke-width:1.7px

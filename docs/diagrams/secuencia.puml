@@ -1,0 +1,26 @@
+@startuml secuencia
+title PoC N02A - Brief estructurado con Privacy Vault
+actor "Asesor de\nAtención al cliente" as A
+participant "Frontend\n(React)" as F
+participant "Backend API\n(Node.js/Express)" as B
+participant "Privacy Vault" as V
+database "Base de datos\n(vault_entries, briefs)" as D
+participant "LLM\n(OpenAI / Bedrock)" as L
+
+A -> F : Pega el mensaje del cliente (N02)
+F -> B : POST /api/briefs {message}
+B -> V : anonymize(message)
+V -> D : Guarda pares [dato privado, token]
+V --> B : mensaje anonimizado
+B -> L : Prompt + mensaje anonimizado\n(pide JSON del brief)
+L --> B : JSON del brief (con tokens)
+B -> B : Valida esquema JSON\n(campos faltantes, null si no hay evidencia)
+B -> V : deanonymize(brief)
+V -> D : Consulta tokens
+V --> B : brief con datos reales
+B --> F : brief + preguntas sugeridas +\nrequiere_revision_humana = true
+F --> A : Muestra brief para revisar (N03)
+A -> F : Valida / corrige el brief
+F -> B : PUT /api/briefs/{id} (validado)
+B -> D : Guarda brief validado
+@enduml

@@ -1,0 +1,15 @@
+{
+  "name": "origentours-backend",
+  "version": "0.1.0",
+  "description": "PoC OrigenTours: Privacy Vault (anonimización de PII) previo al brief con GenAI",
+  "main": "src/server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node --test test/*.test.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.1.0"
+  }
+}

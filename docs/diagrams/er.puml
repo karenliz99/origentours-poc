@@ -1,0 +1,32 @@
+@startuml er
+hide circle
+skinparam linetype ortho
+title Modelo de datos (equivalente al diagrama Mermaid)
+entity "SOLICITUD" as S {
+  * id : uuid <<PK>>
+  --
+  canal : string
+  estado : string
+  created_at : datetime
+}
+entity "BRIEF" as B {
+  * id : uuid <<PK>>
+  --
+  solicitud_id : uuid <<FK>>
+  contenido_json : json
+  completitud : string
+  requiere_revision_humana : boolean
+  validado_por : string
+  version : int
+}
+entity "VAULT_ENTRY" as V {
+  * token : string <<PK>>
+  --
+  solicitud_id : uuid <<FK>>
+  type : string
+  original_cifrado : string
+  created_at : datetime
+}
+S ||--o{ B : "tiene"
+S ||--o{ V : "genera"
+@enduml
